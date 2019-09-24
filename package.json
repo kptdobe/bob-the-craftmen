@@ -1,0 +1,22 @@
+{
+  "name": "bob-the-craftmen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kptdobe/bob-the-craftmen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kptdobe/bob-the-craftmen/issues"
+  },
+  "homepage": "https://github.com/kptdobe/bob-the-craftmen#readme",
+  "dependencies": {
+    "jquery": "^3.4.1"
+  }
+}
