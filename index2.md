@@ -1,0 +1,7 @@
+# Bob the Craftman
+
+`markdown:bio.md`
+
+`markdown:top-works.md`
+
+`markdown:top-articles.md`
