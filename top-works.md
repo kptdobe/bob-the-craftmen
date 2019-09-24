@@ -1,4 +1,4 @@
-## How I do it
+## What I do
 
 - [The Birth of Bob](works/the-birth-of-bob.md)
 - [The Bob-a Lisa](works/the-bob-a-lisa.md)

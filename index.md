@@ -6,7 +6,7 @@ Lorem ipsum dolor sit amet proin
 
 Repellat tortor tempus fringilla nullam interdum ornare lacus dui nonummy libero donec justo ipsum lorem pede tincidunt turpis penatibus sollicitudin est. Vitae litora sed in ac sollicitudin. Est tortor vulputate. Convallis orci semper praesent sed arcu mi tempor elit. Ultricies elit velit vestibulum tempus eget. Viverra lacus donec. Sed condimentum purus. Convallis nisl integer libero metus adipiscing. Sagittis ullamcorper orci tortor aliquet id. Diam torquent vestibulum. Nisl enim purus. Mus consequuntur in ridiculus sed sit. Mauris leo sit ornare ligula vitae. Pellentesque hymenaeos nec augue neque et. Hac mauris nam. Suspendisse hendrerit dignissim praesent.
 
-## How I do it
+## What I do
 
 - [The Birth of Bob](works/the-birth-of-bob.md)
 - [The Bob-a Lisa](works/the-bob-a-lisa.md)
