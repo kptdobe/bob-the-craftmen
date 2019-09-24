@@ -1,5 +1,7 @@
 # Bob the Craftman
 
+![me](http://lorempixel.com/800/400/business/)
+
 ## Who I am
 
 Lorem ipsum dolor sit amet proin
