@@ -1,10 +1,9 @@
 # Bob the Craftman
 
 ## Who I am
-`bio.md`
+`markdown:bio.md`
 
 ## What I do
-`top-works.md`
+`markdown:top-works.md`
 
-## How I do it
-`top-articles.md`
+`markdown:top-articles.md`
