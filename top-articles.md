@@ -1,5 +1,5 @@
 ## How I do it
 
-- `markdown:articles/lorem-ipsum.md`
-- `markdown:articles/dolor-sit-amet.md`
-- `markdown:articles/dolorum.md`
+- [Lorem Ipsum](articles/lorem-ipsum.md)
+- [Dolor Sit Amet](articles/dolor-sit-amet.md)
+- [Dolorum](articles/dolorum.md)
