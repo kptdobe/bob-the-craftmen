@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${content.title}</title>
+    <esi:include src="/head.html" onerror="continue"/>
+</head>
+<body>
+    <section class="container">
+
+        <!--/* A title for the gallery section */-->
+        <h1 data-sly-test="${content.title}">${content.title}</h1>
+
+        <!--/* A short introductory paragraph for the gallery */-->
+        <sly data-sly-list.el="${content.document.body.children}">
+            <p data-sly-test="${el.nodeName == 'P'}">${el.innerHTML}</p>
+        </sly>
+
+        <!--/* The gallery items */-->
+        <sly data-sly-list.el="${content.document.body.children}">
+            <ul class="row" data-sly-test="${el.nodeName == 'UL'}" data-sly-list.item="${el.children}">
+                <sly data-sly-test.cols2="${content.mdast.meta.layout_columns == 2 ? 'six' : null}"/>
+                <sly data-sly-test.cols3="${content.mdast.meta.layout_columns == 3 ? 'four' : null}"/>
+                <sly data-sly-test.cols4="${content.mdast.meta.layout_columns == 4 ? 'three' : null}"/>
+                <sly data-sly-test.cols6="${content.mdast.meta.layout_columns == 6 ? 'two' : null}"/>
+                <li class="${cols2 || cols3 || cols4 || cols6 || 'twelve'} columns">
+                    <sly data-sly-test.link="${item.children[0].nodeName == 'A' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'A' && item.children[1]}"/>
+                    <sly data-sly-test.img="${item.children[0].nodeName == 'IMG' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'IMG' && item.children[1]}"/>
+                    <div itemscope itemtype="${content.mdast.meta.layout_schema || 'http://schema.org/CreativeWork'}">
+                        <a href="${link && link.href}" itemprop="url">
+                            <img itemprop="image" src="${img && img.src || 'fallback.png'}" alt="${img && img.alt}"/>
+                            <span itemprop="name">${link.innerHTML}</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </sly>
+
+    </section>
+</body>
