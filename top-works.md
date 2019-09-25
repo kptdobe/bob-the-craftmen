@@ -1,6 +1,7 @@
 ---
 layout: gallery
-layout_columns: 4
+layout_columns: 4 # 1, 2, 3, 4, 6
+layout_mode: tile # list, block, tile
 layout_schema: http://schema.org/Painting
 ---
 
