@@ -14,7 +14,9 @@ Repellat tortor tempus fringilla nullam interdum ornare lacus dui nonummy libero
 
 ---
 layout: gallery
-  - columns: 4
+layout_columns: 4
+layout_mode: tile
+layout_schema: http://schema.org/Painting
 ---
 
 ## What I do
@@ -28,7 +30,9 @@ Lorem ipsum
 
 ---
 layout: gallery
-  - columns: 3
+layout_columns: 3
+layout_mode: tile
+layout_schema: http://schema.org/Article
 ---
 
 ## How I do it

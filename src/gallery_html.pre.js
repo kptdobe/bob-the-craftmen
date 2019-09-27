@@ -9,39 +9,11 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-const rp = require('request-promise-native');
-const yaml = require('js-yaml');
+const html = require('./html.pre.js');
 
-/**
- * Tries to load the `<path>.yaml` from the content repository.
- * @return {*} the meta props object or {@code {}}
- */
-async function fetch(context, { secrets = {}, request, logger }) {
-  const {
-    owner, repo, ref, path,
-  } = request.params;
-  const yamlPath = path.replace(/\.\w+$/, '.yaml');
-  const rootUrl = secrets.REPO_RAW_ROOT || 'https://raw.githubusercontent.com/';
-  const url = `${rootUrl}${owner}/${repo}/${ref}${yamlPath}`;
-  logger.info(`trying to load ${url}`);
-  try {
-    return await rp({
-      url,
-      transform: (data) => {
-        return yaml.safeLoad(data)
-      }
-    });
-  } catch (e) {
-    logger.info('unable to load yaml: e', e);
-    return Promise.resolve({});
-  }
-}
-
-module.exports.pre = function pre(context) {};
+module.exports.pre = () => {};
 
 module.exports.after = {
-  meta: async (context, action) => {
-    const yaml = await fetch(context, action);
-    context.content.mdast.meta = Object.assign({}, context.content.mdast.meta, yaml);
-  }
+  // Make sure to load meta from the matching yaml file if available
+  meta: html.after.meta
 }

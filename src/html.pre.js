@@ -12,6 +12,8 @@
 const jquery = require('jquery');
 const fetchGoogle = require('./fetch-google.js');
 const fetchFSTab = require('./fetch-fstab.js');
+const fetchYAML = require('./fetch-yaml.js');
+const selectAll = require('unist-util-select').selectAll;
 
 /**
  * The 'pre' function that is executed before the HTML is rendered
@@ -46,7 +48,7 @@ function pre(context) {
 
   // if there are no sections wrap everything in a default div
   if ($sections.length === 0) {
-    $(document.body).children().wrapAll('<div class="default"></div>');
+    $(document.body).children().wrapAll('<div class="container"></div>');
   }
 }
 
@@ -104,5 +106,33 @@ module.exports.before = {
       secrets.REPO_RAW_ROOT = oldRaw;
       secrets.HTTP_TIMEOUT = oldTimeout;
     }
-  },
+  }
 };
+
+module.exports.before = {
+
+  // Load embeds with layout defined in the matching yaml file if available
+  html: async (context, { secrets, request, logger }) => {
+    const embeds = selectAll('embed', context.content.mdast);
+    for (const i in embeds) {
+      const node = embeds[i];
+      const { owner, repo, ref } = request.params;
+      let newRequest = Object.assign(request, {params: {owner, repo, ref, path: node.url.replace(/\.embed/, '')}});
+      const yaml = await fetchYAML(context, {secrets, logger, request: newRequest});
+      if (yaml.layout) {
+        node.url = node.url.replace(/\.embed\./, `.${yaml.layout}.`);
+      }
+    }
+  }
+
+}
+
+module.exports.after = {
+
+  // Make sure to load meta from the matching yaml file if available
+  meta: async (context, action) => {
+    const yaml = await fetchYAML(context, action);
+    context.content.mdast.meta = Object.assign({}, context.content.mdast.meta, yaml);
+  }
+
+}

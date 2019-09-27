@@ -3,6 +3,10 @@ body {
     color: #444;
 }
 
+main {
+    padding-top: 5em;
+}
+
 .row {
     list-style: none;
 }
