@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kptdobe/bob-the-craftmen#readme",
   "dependencies": {
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "js-yaml": "^3.13.1"
   }
 }
