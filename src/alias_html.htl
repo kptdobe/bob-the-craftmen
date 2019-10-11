@@ -5,7 +5,7 @@
 
     It usually contains the navigation, site title, logo, etc.
 */-->
-<sly data-sly-test="${request.path == '/header.alias.html'}">
+<sly data-sly-test.header="${request.path == '/header.alias.html'}">
     <header>${content.document.body}</header>
 </sly>
 
@@ -14,7 +14,7 @@
 
     It usually contains the footer links, social network links, etc.
 */-->
-<sly data-sly-test="${request.path == '/footer.alias.html'}">
+<sly data-sly-test.footer="${request.path == '/footer.alias.html'}">
     <footer>${content.document.body}</footer>
 </sly>
 
@@ -44,4 +44,11 @@
   <esi:include src="/theme/${request.selector}/footer.js.html"  onerror="continue"/>
 </body>
 </html>
+</sly>
+
+<!--/*
+    Unknown layout
+*/-->
+<sly data-sly-test="${content.mdast.meta.layout && !header && !footer}">
+${content.document.body}
 </sly>

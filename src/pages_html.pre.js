@@ -12,10 +12,11 @@
 const jquery = require('jquery');
 const html = require('./html.pre.js');
 
-module.exports.pre = (context) => {
+module.exports.pre = (context, action) => {
   const { document } = context.content;
   const $ = jquery(document.defaultView);
 
+  const cssClass = context.content.mdast.meta.class || '';
   const $sections = $(document.body).children('div');
 
   // first section has a starting image: add title class and wrap all subsequent items inside a div
@@ -24,7 +25,7 @@ module.exports.pre = (context) => {
     .has('p:first-child>img')
     .addClass('title')
     .find(':nth-child(1n+2)')
-    .wrapAll('<div class="header"></div>');
+    .wrapAll(`<div class="header ${cssClass}"></div>`);
 
   // sections consisting of only one image
   $sections
@@ -36,11 +37,11 @@ module.exports.pre = (context) => {
   $sections
     .not('.image')
     .not('.title')
-    .addClass('default');
+    .addClass(`default ${cssClass}`);
 
   // if there are no sections wrap everything in a default div
   if ($sections.length === 0) {
-    $(document.body).children().wrapAll('<div class="container"></div>');
+    $(document.body).children().wrapAll(`<div class="default ${cssClass}"></div>`);
   }
 };
 

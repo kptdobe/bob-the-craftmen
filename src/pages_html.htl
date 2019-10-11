@@ -4,7 +4,29 @@
     It usually contains the navigation, site title, logo, etc.
 */-->
 <sly data-sly-test.header="${request.path == '/header.pages.html'}">
-    <header>${content.document.body}</header>
+    <header>
+        <div>
+            <p>
+                <img src="/helix_logo_dark.png" alt="Helix">
+                ${content.mdast.title}
+            </p>
+            <p><a href="#menu">${'&#9776;' @ context='html'}</a></p>
+        </div>
+        <div>
+            <p><a href="#">${'&times;' @ context='html'}</a></p>
+            <nav>
+                <sly data-sly-list="${content.mdast.children}">
+                    <ul data-sly-test="${item.type == 'list'}" data-sly-list="${item.children}">
+                        <li>
+                            <a href="${item.children[0].children[0].url}">
+                                <span>${item.children[0].children[0].children[0].value}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </sly>
+            </nav>
+        </div>
+    </header>
 </sly>
 
 <!--/*
@@ -42,4 +64,11 @@
   <esi:include src="/theme/${request.selector}/footer.js.html"  onerror="continue"/>
 </body>
 </html>
+</sly>
+
+<!--/*
+    Unknown layout
+*/-->
+<sly data-sly-test="${content.mdast.meta.layout && !header && !footer}">
+${content.document.body}
 </sly>

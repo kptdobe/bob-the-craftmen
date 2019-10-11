@@ -1,4 +1,47 @@
 /**
+ * Style adjustments for the Pages theme
+ */
+body[data-theme="pages"] .works ul,
+body[data-theme="pages"] .articles ul,
+body[data-theme="pages"] footer {
+    content: "";
+    display: table;
+    clear: both;
+}
+body[data-theme="pages"] footer .default {
+    float: left;
+    width: 25%;
+    box-sizing: border-box;
+    text-align: left;
+}
+body[data-theme="pages"] footer .default h2 {
+    font-size: 2em;
+}
+body[data-theme="pages"] footer .default ul {
+    padding-left: 2em;
+}
+body[data-theme="pages"] .works ul,
+body[data-theme="pages"] .articles ul {
+    width: 100%;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+body[data-theme="pages"] .works li,
+body[data-theme="pages"] .articles li {
+    padding: 1em;
+    box-sizing: border-box;
+}
+body[data-theme="pages"] .works li {
+    float: left;
+    width: 25%;
+}
+body[data-theme="pages"] .articles li {
+    float: left;
+    width: 33%;
+}
+
+/**
  * Style adjustments for the Clark theme
  */
 body[data-theme="clark"] main {

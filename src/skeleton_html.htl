@@ -96,3 +96,10 @@
 </body>
 </html>
 </sly>
+
+<!--/*
+    Unknown layout
+*/-->
+<sly data-sly-test="${content.mdast.meta.layout && !header && !footer}">
+${content.document.body}
+</sly>
