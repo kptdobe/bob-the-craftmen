@@ -1,0 +1,166 @@
+<!--/* https://colorlib.com/wp/template/clark/ */-->
+
+<!--/*
+    The HTML page header
+
+    It usually contains the navigation, site title, logo, etc.
+*/-->
+<sly data-sly-test.header="${request.path == '/header.clark.html'}">
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+	    <div class="container">
+            <a class="navbar-brand" href="index2.html">${content.mdast.title}</a>
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <sly data-sly-list="${content.mdast.children}">
+                    <ul class="navbar-nav nav ml-auto" data-sly-test="${item.type == 'list'}" data-sly-list="${item.children}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="${item.children[0].children[0].url}">
+                                <span>${item.children[0].children[0].children[0].value}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </sly>
+            </div>
+	    </div>
+	</nav>
+</sly>
+
+<!--/*
+    The HTML page footer
+
+    It usually contains the footer links, social network links, etc.
+*/-->
+<sly data-sly-test.footer="${request.path == '/footer.clark.html'}">
+    <footer class="ftco-footer ftco-section">
+        <div class="container">
+            <div class="row mb-5">
+                <sly data-sly-list.section="${content.document.body.children}">
+                    <div class="col-md">
+                        <div class="ftco-footer-widget mb-4">
+                            <sly data-sly-list.block="${section.children}">
+                                <h2 class="ftco-heading-2" data-sly-test="${block.nodeName == 'H2'}">${block.innerHTML}</h2>
+
+                                <p data-sly-test.hasParagrah="${block.nodeName == 'P'}">${block.innerHTML}</p>
+
+                                <div class="${sectionList.last ? 'block-23' : ''}">
+                                    <ul class="list-unstyled${sectionList.first ? ' ftco-footer-social mt-5' : ''}" data-sly-test="${block.nodeName == 'UL'}" data-sly-list="${block.children}">
+                                        <li data-sly-test="${sectionList.first}" class="ftco-animate"><a href="#" title="${item.children[0].innerText}"><span class="icon-${item.children[0].innerHTML}"></span></a></li>
+                                        <li data-sly-test="${sectionList.middle}"><a href="#"><span class="icon-long-arrow-right mr-2"></span>${item.children[0].innerHTML}</a></li>
+                                        <li data-sly-test="${sectionList.last}">
+                                            <sly data-sly-test="${itemList.first}"><span class="icon icon-map-marker"></span></sly>
+                                            <sly data-sly-test="${itemList.middle}"><span class="icon icon-phone"></span></sly>
+                                            <sly data-sly-test="${itemList.last}"><span class="icon icon-map-envelope"></span></sly>
+                                            <span class="text">${item.innerHTML}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </sly>
+                        </div>
+                    </div>
+                </sly>
+            </div>
+        </div>
+    </footer>
+</sly>
+
+<!--/*
+    The "gallery" layout
+
+    It can be further customized with:
+    - layout_mode: list|block|tile
+    - layout_columns: 1|2|3|4|6 (only applies to tile layout mode)
+    - layout_schema: the microdata schema to use (i.e. http://schema.org/CreativeWork)
+*/-->
+<sly data-sly-test="${content.mdast.meta.layout == 'gallery'}">
+    <!--/* A title for the gallery section */-->
+    <h1 data-sly-test="${content.title}">${content.title}</h1>
+
+    <!--/* A short introductory paragraph for the gallery */-->
+    <sly data-sly-list.el="${content.document.body.children}">
+        <p data-sly-test="${el.nodeName == 'P'}">${el.innerHTML}</p>
+    </sly>
+
+    <!--/* The gallery items */-->
+    <sly data-sly-list.el="${content.document.body.children}">
+
+        <!--/* Simple list */-->
+        <sly data-sly-test="${content.mdast.meta.layout_mode == 'list'}">
+            <ul data-sly-test="${el.nodeName == 'UL'}" data-sly-list.item="${el.children}">
+                <li>
+                    <sly data-sly-test.link="${item.children[0].nodeName == 'A' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'A' && item.children[1]}"/>
+                    <sly data-sly-test.img="${item.children[0].nodeName == 'IMG' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'IMG' && item.children[1]}"/>
+                    <div itemscope itemtype="${content.mdast.meta.layout_schema || 'http://schema.org/CreativeWork'}">
+                        <a href="${link && link.href}" itemprop="url">
+                            <img itemprop="image" src="${img && img.src || 'fallback.png'}" alt="${img && img.alt}"/>
+                            <span itemprop="name">${link.innerHTML}</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </sly>
+
+        <!--/* Full-width blocks */-->
+        <sly data-sly-test="${content.mdast.meta.layout_mode == 'block'}">
+            <ul class="row" data-sly-test="${el.nodeName == 'UL'}" data-sly-list.item="${el.children}">
+                <li class="row">
+                    <sly data-sly-test.link="${item.children[0].nodeName == 'A' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'A' && item.children[1]}"/>
+                    <sly data-sly-test.img="${item.children[0].nodeName == 'IMG' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'IMG' && item.children[1]}"/>
+                    <div itemscope itemtype="${content.mdast.meta.layout_schema || 'http://schema.org/CreativeWork'}">
+                        <a href="${link && link.href}" itemprop="url">
+                            <img class="two columns" itemprop="image" src="${img && img.src || 'fallback.png'}" alt="${img && img.alt}"/>
+                            <span class="ten columns" itemprop="name">${link.innerHTML}</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </sly>
+
+        <!--/* Floated tiles */-->
+        <sly data-sly-test="${content.mdast.meta.layout_mode == 'tile'}">
+            <ul class="row" data-sly-test="${el.nodeName == 'UL'}" data-sly-list.item="${el.children}">
+                <li class="col-md">
+                    <sly data-sly-test.link="${item.children[0].nodeName == 'A' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'A' && item.children[1]}"/>
+                    <sly data-sly-test.img="${item.children[0].nodeName == 'IMG' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'IMG' && item.children[1]}"/>
+                    <div itemscope itemtype="${content.mdast.meta.layout_schema || 'http://schema.org/CreativeWork'}">
+                        <a href="${link && link.href}" itemprop="url">
+                            <img itemprop="image" src="${img && img.src || 'fallback.png'}" alt="${img && img.alt}"/>
+                            <span itemprop="name">${link.innerHTML}</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </sly>
+    </sly>
+</sly>
+
+<!--/*
+    The default page fallback
+
+    Used when directly theming using the URL selector (i.e. index.clark.html)
+*/-->
+<sly data-sly-test="${!content.mdast.meta.layout && !header && !footer}">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${content.title}</title>
+    <esi:include src="/theme/${request.selector}/head.html" onerror="continue"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css"/>
+</head>
+<body data-theme="${request.selector}">
+  <!--  header -->
+  <esi:include src="/header.${request.selector}.html" onerror="continue"/>
+
+  <!--  main content -->
+  <main class="${content.mdast.meta.class}">${content.document.body}</main>
+
+  <!--  footer -->
+  <esi:include src="/footer.${request.selector}.html"  onerror="continue"/>
+  <esi:include src="/theme/${request.selector}/footer.js.html"  onerror="continue"/>
+</body>
+</html>
+</sly>

@@ -1,0 +1,98 @@
+<!--/* http://getskeleton.com/ */-->
+
+<!--/*
+    The HTML page header
+
+    It usually contains the navigation, site title, logo, etc.
+*/-->
+<sly data-sly-test.header="${request.path == '/header.skeleton.html'}">
+    <header class="container">
+        <div class="row">
+            <h1 class="six columns">${content.mdast.title}</h1>
+            <nav class="six columns">
+                <sly data-sly-list="${content.mdast.children}">
+                    <ul data-sly-test="${item.type == 'list'}" data-sly-list="${item.children}">
+                        <li class="u-pull-left">
+                            <a href="${item.children[0].children[0].url}">
+                                <span>${item.children[0].children[0].children[0].value}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </sly>
+            </nav>
+        </div>
+    </header>
+</sly>
+
+<!--/*
+    The HTML page footer
+
+    It usually contains the footer links, social network links, etc.
+*/-->
+<sly data-sly-test.footer="${request.path == '/footer.skeleton.html'}">
+    <footer class="container">
+        <div class="row">
+            <sly data-sly-list.section="${content.document.body.children}">
+                <div class="three columns">${section.innerHTML}</div>
+            </sly>
+        </div>
+    </footer>
+</sly>
+
+<!--/*
+    The "gallery" layout
+
+    It can be further customized with:
+    - layout_columns: 1|2|3|4|6 (only applies to tile layout mode)
+*/-->
+<sly data-sly-test="${content.mdast.meta.layout == 'gallery'}">
+    <!--/* A title for the gallery section */-->
+    <h1 data-sly-test="${content.title}">${content.title}</h1>
+
+    <!--/* A short introductory paragraph for the gallery */-->
+    <sly data-sly-list.el="${content.document.body.children}">
+        <p data-sly-test="${el.nodeName == 'P'}">${el.innerHTML}</p>
+    </sly>
+
+    <!--/* The gallery items */-->
+    <sly data-sly-list.el="${content.document.body.children}">
+        <ul class="row" data-sly-test="${el.nodeName == 'UL'}" data-sly-list.item="${el.children}">
+            <li class="row">
+                <sly data-sly-test.link="${item.children[0].nodeName == 'A' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'A' && item.children[1]}"/>
+                <sly data-sly-test.img="${item.children[0].nodeName == 'IMG' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'IMG' && item.children[1]}"/>
+                <a href="${link && link.href}" itemprop="url">
+                    <img class="two columns" itemprop="image" src="${img && img.src || 'fallback.png'}" alt="${img && img.alt}"/>
+                    <span class="ten columns" itemprop="name">${link.innerHTML}</span>
+                </a>
+            </li>
+        </ul>
+    </sly>
+</sly>
+
+<!--/*
+    The default page fallback
+
+    Used when directly theming using the URL selector (i.e. index.skeleton.html)
+*/-->
+<sly data-sly-test="${!content.mdast.meta.layout && !header && !footer}">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${content.title}</title>
+    <esi:include src="/theme/${request.selector}/head.html" onerror="continue"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css"/>
+</head>
+<body data-theme="${request.selector}">
+  <!--  header -->
+  <esi:include src="/header.${request.selector}.html" onerror="continue"/>
+
+  <!--  main content -->
+  <main class="${content.mdast.meta.class}">${content.document.body}</main>
+
+  <!--  footer -->
+  <esi:include src="/footer.${request.selector}.html"  onerror="continue"/>
+  <esi:include src="/theme/${request.selector}/footer.js.html"  onerror="continue"/>
+</body>
+</html>
+</sly>

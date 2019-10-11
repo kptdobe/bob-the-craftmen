@@ -1,4 +1,6 @@
-# Bob the Craftman
+---
+class: container
+---
 
 `markdown:bio.md`
 

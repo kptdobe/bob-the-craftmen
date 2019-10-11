@@ -1,0 +1,36 @@
+<div itemscope itemtype="http://schema.org/Person">
+
+    <!--/* A title for the gallery section */-->
+    <h1 data-sly-test="${content.title}" itemprop="name">${content.title}</h1>
+
+    <div class="row">
+        <div class="four columns">
+
+            <!--/* A headshot picture */-->
+            <sly data-sly-list.el="${content.document.body.children}">
+                <sly data-sly-test="${el.nodeName == 'P'}" data-sly-list.el2="${el.children}">
+                    <sly data-sly-test="${el2.nodeName == 'IMG'}">
+                        <img itemprop="image" src="${el2.src}" alt="${el2.alt}"/>
+                    </sly>
+                </sly>
+            </sly>
+
+        </div>
+
+        <div class="eight columns">
+
+            <!--/* The artist's name */-->
+            <sly data-sly-list.el="${content.document.body.children}">
+                <p itemprop="name" data-sly-test="${el.nodeName == 'H3'}">${el.innerHTML}</p>
+            </sly>
+
+            <!--/* A short introductory paragraph for the gallery */-->
+            <sly data-sly-list.el="${content.document.body.children}">
+                <p itemprop="${elList.first ? 'name' : 'description'}" data-sly-test="${el.nodeName == 'P' && (el.children.length != 1 || el.children[0].nodeName != 'IMG')}">${el.innerHTML}</p>
+            </sly>
+
+        </div>
+
+    </div>
+
+</div>

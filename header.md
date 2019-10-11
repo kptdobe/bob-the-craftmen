@@ -1,9 +1,10 @@
-[&#9776;](#menu)
+# Bob the painter
 
----
-
-[&times;](#)
-- [Home](/index.md)
-- [Bio](/bio.md)
-- [Top Works](/top-works.md)
-- [Top Articles](/top-articles.md)
+- [Home](#home-section)
+- [About](#about-section)
+- [Resume](#resume-section)
+- [Services](#services-section)
+- [Skills](#skills-section)
+- [Projects](#projects-section)
+- [My Blog](#blog-section)
+- [Contact](#contact-section)

@@ -21,35 +21,7 @@ const selectAll = require('unist-util-select').selectAll;
  * @param context.content The content
  */
 function pre(context) {
-  const { document } = context.content;
-  const $ = jquery(document.defaultView);
-
-  const $sections = $(document.body).children('div');
-
-  // first section has a starting image: add title class and wrap all subsequent items inside a div
-  $sections
-    .first()
-    .has('p:first-child>img')
-    .addClass('title')
-    .find(':nth-child(1n+2)')
-    .wrapAll('<div class="header"></div>');
-
-  // sections consisting of only one image
-  $sections
-    .filter('[data-hlx-types~="has-only-image"]')
-    .not('.title')
-    .addClass('image');
-
-  // sections without image and title class gets a default class
-  $sections
-    .not('.image')
-    .not('.title')
-    .addClass('default');
-
-  // if there are no sections wrap everything in a default div
-  if ($sections.length === 0) {
-    $(document.body).children().wrapAll('<div class="container"></div>');
-  }
+  context.request.resource = context.request.path.replace(`.${context.request.extension}`, '').replace(context.request.selector, '')
 }
 
 module.exports.pre = pre;
@@ -116,11 +88,11 @@ module.exports.before = {
     const embeds = selectAll('embed', context.content.mdast);
     for (const i in embeds) {
       const node = embeds[i];
-      const { owner, repo, ref } = request.params;
-      let newRequest = Object.assign(request, {params: {owner, repo, ref, path: node.url.replace(/\.embed/, '')}});
-      const yaml = await fetchYAML(context, {secrets, logger, request: newRequest});
-      if (yaml.layout) {
-        node.url = node.url.replace(/\.embed\./, `.${yaml.layout}.`);
+      if (context.request.selector) {
+        node.url = node.url.replace(/\.embed\./, `.${context.request.selector}.`);
+      }
+      else if (context.content.mdast.meta.theme) {
+        node.url = node.url.replace(/\.embed\./, `.${context.content.mdast.meta.theme}.`);
       }
     }
   }

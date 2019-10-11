@@ -1,0 +1,47 @@
+<!--/* https://colorlib.com/wp/template/alias/ */-->
+
+<!--/*
+    The HTML page header
+
+    It usually contains the navigation, site title, logo, etc.
+*/-->
+<sly data-sly-test="${request.path == '/header.alias.html'}">
+    <header>${content.document.body}</header>
+</sly>
+
+<!--/*
+    The HTML page footer
+
+    It usually contains the footer links, social network links, etc.
+*/-->
+<sly data-sly-test="${request.path == '/footer.alias.html'}">
+    <footer>${content.document.body}</footer>
+</sly>
+
+<!--/*
+    The default page fallback
+
+    Used when directly theming using the URL selector (i.e. index.alias.html)
+*/-->
+<sly data-sly-test="${!content.mdast.meta.layout && !header && !footer}">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${content.title}</title>
+    <esi:include src="/theme/${request.selector}/head.html" onerror="continue"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css"/>
+</head>
+<body data-theme="${request.selector}">
+  <!--  header -->
+  <esi:include src="/header.${request.selector}.html" onerror="continue"/>
+
+  <!--  main content -->
+  <main class="${content.mdast.meta.class}">${content.document.body}</main>
+
+  <!--  footer -->
+  <esi:include src="/footer.${request.selector}.html"  onerror="continue"/>
+  <esi:include src="/theme/${request.selector}/footer.js.html"  onerror="continue"/>
+</body>
+</html>
+</sly>

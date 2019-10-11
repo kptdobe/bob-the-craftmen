@@ -1,27 +1,32 @@
-body {
-    background: #eee;
-    color: #444;
+/**
+ * Style adjustments for the Clark theme
+ */
+body[data-theme="clark"] main {
+    padding-top: 4em;
 }
-
-main {
-    padding-top: 5em;
-}
-
-.row {
+body[data-theme="clark"] ul.row {
+    padding: 0;
     list-style: none;
 }
-.columns {
-    margin-bottom: 0;
-}
-
-img {
+body[data-theme="clark"] .col-md img {
     max-width: 100%;
-    vertical-align: bottom;
 }
 
-.six.columns:nth-of-type(2n+1),
-.four.columns:nth-of-type(3n+1),
-.three.columns:nth-of-type(4n+1),
-.two.columns:nth-of-type(6n+1) {
-    margin-left: 0;
+
+/**
+ * Style adjustments for the Skeleton theme
+ */
+body[data-theme="skeleton"] nav ul,
+body[data-theme="skeleton"] ul.row {
+    padding: 0;
+    list-style: none;
+}
+body[data-theme="skeleton"] nav li {
+    padding-left: 1em;
+}
+body[data-theme="skeleton"] .columns img {
+    max-width: 100%;
+}
+body[data-theme="skeleton"] footer h2 {
+    font-size: 2em;
 }
