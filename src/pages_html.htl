@@ -3,7 +3,7 @@
 
     It usually contains the navigation, site title, logo, etc.
 */-->
-<sly data-sly-test.header="${request.path == '/header.hlx.html'}">
+<sly data-sly-test.header="${request.path == '/header.pages.html'}">
     <header>${content.document.body}</header>
 </sly>
 
@@ -12,14 +12,14 @@
 
     It usually contains the footer links, social network links, etc.
 */-->
-<sly data-sly-test.footer="${request.path == '/footer.hlx.html'}">
+<sly data-sly-test.footer="${request.path == '/footer.pages.html'}">
     <footer>${content.document.body}</footer>
 </sly>
 
 <!--/*
     The default page fallback
 
-    Used when directly theming using the URL selector (i.e. index.hlx.html)
+    Used when directly theming using the URL selector (i.e. index.pages.html)
 */-->
 <sly data-sly-test="${!content.mdast.meta.layout && !header && !footer}">
 <!DOCTYPE html>

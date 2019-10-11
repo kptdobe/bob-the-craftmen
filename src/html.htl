@@ -2,19 +2,19 @@
 <html>
 <head>
     <title>${content.title}</title>
-    <esi:include src="/theme/${content.mdast.meta.theme || 'hlx'}/head.html" onerror="continue"/>
+    <esi:include src="/theme/${content.mdast.meta.theme || 'pages'}/head.html" onerror="continue"/>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="/style.css"/>
 </head>
-<body data-theme="${content.mdast.meta.theme || 'hlx'}">
+<body data-theme="${content.mdast.meta.theme || 'pages'}">
   <!--  header -->
-  <esi:include src="/header.${content.mdast.meta.theme || 'hlx'}.html" onerror="continue"/>
+  <esi:include src="/header.${content.mdast.meta.theme || 'pages'}.html" onerror="continue"/>
 
   <!--  main content -->
   <main class="${content.mdast.meta.class}">${content.document.body}</main>
 
   <!--  footer -->
-  <esi:include src="/footer.${content.mdast.meta.theme || 'hlx'}.html"  onerror="continue"/>
-  <esi:include src="/theme/${content.mdast.meta.theme || 'hlx'}/footer.js.html"  onerror="continue"/>
+  <esi:include src="/footer.${content.mdast.meta.theme || 'pages'}.html"  onerror="continue"/>
+  <esi:include src="/theme/${content.mdast.meta.theme || 'pages'}/footer.js.html"  onerror="continue"/>
 </body>
 </html>
