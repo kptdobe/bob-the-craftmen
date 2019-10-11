@@ -45,7 +45,7 @@
     It can be further customized with:
     - layout_columns: 1|2|3|4|6 (only applies to tile layout mode)
 */-->
-<sly data-sly-test="${content.mdast.meta.layout == 'gallery'}">
+<sly data-sly-test.gallery="${content.mdast.meta.layout == 'gallery'}">
     <!--/* A title for the gallery section */-->
     <h1 data-sly-test="${content.title}">${content.title}</h1>
 
@@ -100,6 +100,6 @@
 <!--/*
     Unknown layout
 */-->
-<sly data-sly-test="${content.mdast.meta.layout && !header && !footer}">
+<sly data-sly-test="${content.mdast.meta.layout && !header && !footer && !gallery}">
 ${content.document.body}
 </sly>
