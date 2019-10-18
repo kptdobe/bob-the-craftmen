@@ -1,6 +1,6 @@
 ## Who I am
 
-![me](http://lorempixel.com/800/400/business/)
+![me](/assets/the-bob.webp)
 
 ### My name is Bob!
 

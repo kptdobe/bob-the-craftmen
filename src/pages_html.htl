@@ -48,20 +48,20 @@
 <html>
 <head>
     <title>${content.title}</title>
-    <esi:include src="/theme/${request.selector}/head.html" onerror="continue"/>
+    <esi:include src="/theme/pages/head.html" onerror="continue"/>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="/style.css"/>
 </head>
-<body data-theme="${request.selector}">
+<body data-theme="pages">
   <!--  header -->
-  <esi:include src="/header.${request.selector}.html" onerror="continue"/>
+  <esi:include src="/header.pages.html" onerror="continue"/>
 
   <!--  main content -->
   <main class="${content.mdast.meta.class}">${content.document.body}</main>
 
   <!--  footer -->
-  <esi:include src="/footer.${request.selector}.html"  onerror="continue"/>
-  <esi:include src="/theme/${request.selector}/footer.js.html"  onerror="continue"/>
+  <esi:include src="/footer.pages.html"  onerror="continue"/>
+  <esi:include src="/theme/pages/footer.js.html"  onerror="continue"/>
 </body>
 </html>
 </sly>

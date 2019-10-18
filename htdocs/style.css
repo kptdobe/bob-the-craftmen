@@ -7,6 +7,7 @@ body[data-theme="pages"] footer {
     content: "";
     display: table;
     clear: both;
+    margin: 0 auto;
 }
 body[data-theme="pages"] footer .default {
     float: left;
@@ -51,8 +52,26 @@ body[data-theme="clark"] ul.row {
     padding: 0;
     list-style: none;
 }
-body[data-theme="clark"] .col-md img {
-    max-width: 100%;
+body[data-theme="clark"] .hero div[style] {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 56.25%;
+}
+body[data-theme="clark"] .hero [itemprop="image"] {
+    display: none;
+}
+body[data-theme="clark"] .gallery [itemprop="url"] img {
+    display: none;
+}
+body[data-theme="clark"] .gallery [itemprop="url"] div[style] {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding-bottom: 56.25%;
+}
+body[data-theme="clark"] .gallery [itemprop="url"] img {
+    display: none;
 }
 
 

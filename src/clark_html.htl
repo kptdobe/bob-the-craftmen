@@ -67,11 +67,30 @@
     </footer>
 </sly>
 
+<sly data-sly-test.hero="${content.mdast.meta.layout == 'hero'}">
+    <div class="container hero">
+        <div class="row" style="background-image:url('${content.mdast.image}')">
+            <div class="col-md text-right">
+                <img itemprop="image" src="${content.mdast.image}" alt=""/>
+                <h2 class="sr-only">${content.mdast.title}</h2>
+                <sly data-sly-list="${content.document.body.children}">
+                    <sly data-sly-test="${item.nodeName == 'H3'}">${item}</sly>
+                </sly>
+            </div>
+        </div>
+        <div class="row">
+            <sly data-sly-list="${content.document.body.children}">
+                <sly data-sly-test="${item.nodeName == 'P' && (item.children.length != 1 || item.children[0].nodeName != 'IMG')}">${item}</sly>
+            </sly>
+        </div>
+    </div>
+</sly>
+
 <!--/*
     The "gallery" layout
 
     It can be further customized with:
-    - layout_mode: list|block|tile
+    - layout_mode: block|tile
     - layout_columns: 1|2|3|4|6 (only applies to tile layout mode)
     - layout_schema: the microdata schema to use (i.e. http://schema.org/CreativeWork)
 */-->
@@ -85,34 +104,22 @@
     </sly>
 
     <!--/* The gallery items */-->
-    <sly data-sly-list.el="${content.document.body.children}">
-
-        <!--/* Simple list */-->
-        <sly data-sly-test="${content.mdast.meta.layout_mode == 'list'}">
-            <ul data-sly-test="${el.nodeName == 'UL'}" data-sly-list.item="${el.children}">
-                <li>
-                    <sly data-sly-test.link="${item.children[0].nodeName == 'A' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'A' && item.children[1]}"/>
-                    <sly data-sly-test.img="${item.children[0].nodeName == 'IMG' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'IMG' && item.children[1]}"/>
-                    <div itemscope itemtype="${content.mdast.meta.layout_schema || 'http://schema.org/CreativeWork'}">
-                        <a href="${link && link.href}" itemprop="url">
-                            <img itemprop="image" src="${img && img.src || 'fallback.png'}" alt="${img && img.alt}"/>
-                            <span itemprop="name">${link.innerHTML}</span>
-                        </a>
-                    </div>
-                </li>
-            </ul>
-        </sly>
+    <div class="container gallery" data-sly-list.el="${content.document.body.children}">
 
         <!--/* Full-width blocks */-->
         <sly data-sly-test="${content.mdast.meta.layout_mode == 'block'}">
-            <ul class="row" data-sly-test="${el.nodeName == 'UL'}" data-sly-list.item="${el.children}">
+            <ul class="container" data-sly-test="${el.nodeName == 'UL'}" data-sly-list.item="${el.children}">
                 <li class="row">
                     <sly data-sly-test.link="${item.children[0].nodeName == 'A' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'A' && item.children[1]}"/>
                     <sly data-sly-test.img="${item.children[0].nodeName == 'IMG' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'IMG' && item.children[1]}"/>
-                    <div itemscope itemtype="${content.mdast.meta.layout_schema || 'http://schema.org/CreativeWork'}">
-                        <a href="${link && link.href}" itemprop="url">
-                            <img class="two columns" itemprop="image" src="${img && img.src || 'fallback.png'}" alt="${img && img.alt}"/>
-                            <span class="ten columns" itemprop="name">${link.innerHTML}</span>
+                    <div class="col-12" itemscope itemtype="${content.mdast.meta.layout_schema || 'http://schema.org/CreativeWork'}">
+                        <a class="row" href="${link && link.href}" itemprop="url">
+                            <div class="col-3">
+                                <div style="background-image:url('${img && img.src || 'fallback.png'}')">
+                                    <img itemprop="image" src="${img && img.src || 'fallback.png'}" alt="${img && img.alt}"/>
+                                </div>
+                            </div>
+                            <div class="col-9" itemprop="name">${link.innerHTML}</div>
                         </a>
                     </div>
                 </li>
@@ -127,14 +134,16 @@
                     <sly data-sly-test.img="${item.children[0].nodeName == 'IMG' ? item.children[0] : item.children[1] && item.children[1].nodeName == 'IMG' && item.children[1]}"/>
                     <div itemscope itemtype="${content.mdast.meta.layout_schema || 'http://schema.org/CreativeWork'}">
                         <a href="${link && link.href}" itemprop="url">
-                            <img itemprop="image" src="${img && img.src || 'fallback.png'}" alt="${img && img.alt}"/>
+                            <div style="background-image:url('${img && img.src || 'fallback.png'}')">
+                                <img itemprop="image" src="${img && img.src || 'fallback.png'}" alt="${img && img.alt}"/>
+                            </div>
                             <span itemprop="name">${link.innerHTML}</span>
                         </a>
                     </div>
                 </li>
             </ul>
         </sly>
-    </sly>
+    </div>
 </sly>
 
 <!--/*
@@ -147,20 +156,20 @@
 <html>
 <head>
     <title>${content.title}</title>
-    <esi:include src="/theme/${request.selector}/head.html" onerror="continue"/>
+    <esi:include src="/theme/clark/head.html" onerror="continue"/>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="/style.css"/>
 </head>
-<body data-theme="${request.selector}">
+<body data-theme="clark">
   <!--  header -->
-  <esi:include src="/header.${request.selector}.html" onerror="continue"/>
+  <esi:include src="/header.clark.html" onerror="continue"/>
 
   <!--  main content -->
   <main class="${content.mdast.meta.class}">${content.document.body}</main>
 
   <!--  footer -->
-  <esi:include src="/footer.${request.selector}.html"  onerror="continue"/>
-  <esi:include src="/theme/${request.selector}/footer.js.html"  onerror="continue"/>
+  <esi:include src="/footer.clark.html"  onerror="continue"/>
+  <esi:include src="/theme/clark/footer.js.html"  onerror="continue"/>
 </body>
 </html>
 </sly>
@@ -168,6 +177,6 @@
 <!--/*
     Unknown layout
 */-->
-<sly data-sly-test="${content.mdast.meta.layout && !header && !footer && !gallery}">
+<sly data-sly-test="${content.mdast.meta.layout && !header && !footer && !gallery && !hero}">
 ${content.document.body}
 </sly>
