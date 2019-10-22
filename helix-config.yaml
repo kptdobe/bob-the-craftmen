@@ -1,0 +1,36 @@
+#
+# helix configuration for local development
+#
+version: 1
+
+definitions:
+  defaults:
+    - &defaultRepo "https://github.com/kptdobe/bob-the-craftmen.git"
+
+strains:
+  - name: default
+    code: *defaultRepo
+    content: *defaultRepo
+    static: *defaultRepo
+
+  - name: theme-clark
+    code: https://github.com/ramboz/hlx-theme-clark.git#master
+    content: https://github.com/kptdobe/bob-the-craftmen.git
+    static: https://github.com/ramboz/hlx-theme-clark.git/htdocs#master
+    urls:
+      - http://localhost:3001
+
+  - name: theme-pages
+    code: https://github.com/ramboz/hlx-theme-pages.git#master
+    content: *defaultRepo
+    static: https://github.com/ramboz/hlx-theme-pages.git/htdocs#master
+    urls:
+      - http://localhost:3002/
+
+  - name: theme-alias
+    code: https://github.com/ramboz/hlx-theme-alias.git#master
+    content: *defaultRepo
+    static: https://github.com/ramboz/hlx-theme-alias.git/htdocs#master
+    urls:
+      - http://localhost:3003/
+    
